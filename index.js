@@ -5,6 +5,8 @@ const express = require('express');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const qrcode = require('qrcode-terminal');
+
 
 // Configurazione
 const app = express();
@@ -34,10 +36,12 @@ async function connectToWhatsApp() {
     sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect, qr } = update;
         
-        if (qr) {
-            console.log('🔗 QR Code generato! Scansiona con WhatsApp');
-            qrGenerated = true;
-        }
+      if (qr) {
+    console.log('🔗 QR Code generato! Scansiona con WhatsApp');
+    qrcode.generate(qr, { small: true });
+    qrGenerated = true;
+}
+
         
         if (connection === 'close') {
             const shouldReconnect = (lastDisconnect?.error instanceof Boom)?.output?.statusCode !== DisconnectReason.loggedOut;
