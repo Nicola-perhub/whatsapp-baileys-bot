@@ -36,7 +36,8 @@ async function connectToWhatsApp() {
     sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect, qr } = update;
         
-      if (qr) {
+     if (qr) {
+    const qrcode = require('qrcode-terminal');
     console.log('🔗 QR Code generato! Scansiona con WhatsApp');
     qrcode.generate(qr, { small: true });
     qrGenerated = true;
