@@ -26,13 +26,11 @@ const logger = pino({
 async function connectToWhatsApp() {
     const { state, saveCreds } = await useMultiFileAuthState('baileys_auth_info');
     
-    sock = makeWASocket({
-        auth: state,
-        printQRInTerminal: !qrGenerated,
-        logger,
-        browser: ['Bot PDF Reader', 'Chrome', '1.0.0']
-    });
-
+   sock = makeWASocket({
+    auth: state,
+    logger,
+    browser: ['Bot PDF Reader', 'Chrome', '1.0.0']
+});
     sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect, qr } = update;
         
