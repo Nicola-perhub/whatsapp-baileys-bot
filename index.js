@@ -56,7 +56,9 @@ async function connectToWhatsApp() {
     const from = msg.key.remoteJid;
     const messageType = Object.keys(msg.message)[0];
 
-    console.log(`📱 Nuovo messaggio da ${from}: tipo ${messageType}`);
+    console.log("📩 Messaggio completo ricevuto:");
+console.dir(msg, { depth: null });
+
 
     if (messageType === 'documentMessage' && msg.message.documentMessage.mimetype === 'application/pdf') {
       await handlePDFDocument(msg, from);
